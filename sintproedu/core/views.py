@@ -9,4 +9,4 @@ from sintproedu.core.models import Empresa, Projeto
 
 class EmpresaCadastro(generic.CreateView):
     model = Empresa
-    fields = 'nome', 'criador', 'email',
+    fields = 'nome', 'documento', 'email',

@@ -7,7 +7,7 @@ from django.urls import reverse
 class Empresa(models.Model):
     empresa_id: models.AutoField(primary_key=True, blank=False)
     nome = models.CharField(max_length=50, null=False, blank=False)
-    criador = models.CharField(max_length=50, null=False, blank=False)
+    documento = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=100, unique=True, null=False, blank=False)
     cidade = models.CharField(max_length=100, null=False, blank=False)
     Projeto_id = models.IntegerField(max_length=50, null=False, blank=False)
