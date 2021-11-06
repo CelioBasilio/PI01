@@ -1,0 +1,48 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SintProEdu - Unindo empresa e alunos em projetos reais" />
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+</head>
+<body>
+<div class="content">
+    <div class="header">
+        <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal">
+            <a class="pure-menu-heading" href="">SintProEdu</a>
+            <ul>
+                <li class="pure-menu-selected"><a href="#">Início</a></li>
+                <li><a href="#">Projetos</a></li>
+                <li><a href="#">Sobre</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="splash">
+        <div class="pure-g-r">
+            <div class="pure-u-1">
+                <div class="l-box splash-text">
+                    <h1 class="splash-head">
+                        Unindo empresa e alunos para projetos reais
+                    </h1>
+                    <h2 class="splash-subhead">
+                        O SintProEdu visa simplificar o contato entre empresas e alunos, provendo um local web de encontro.
+                    </h2>
+                    <p>
+                        <a href="#" class="pure-button primary-button">Saiba mais</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<script src="http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"></script>
+</body>
+</html>
