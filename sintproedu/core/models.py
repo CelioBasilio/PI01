@@ -37,7 +37,7 @@ class Projeto(models.Model):
     dataLimite = models.DateField(null=True, blank=True, verbose_name='Data Limite')
     descreva = models.TextField(null=True, blank=True)
 
-    projeto = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
 
     def __str__(self):
