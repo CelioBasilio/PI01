@@ -15,14 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from sintproedu.core import views
-from sintproedu.core.views import EmpresaCadastro
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
-    path('accounts/', include('allauth.urls')),
-    path('empresa/cadastro/', EmpresaCadastro.as_view(), name='cadastro-empresa'),
-
+    path('', include('paginas.urls')),
+    path('', include('core.urls')),
+   # path('', include('paginas.urls')),
+   # path('', include('paginas.urls')),
 
 ]
