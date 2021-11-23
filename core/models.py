@@ -14,16 +14,6 @@ class Empresa(models.Model):
         return "{} {} ({})".format(self.nome, self.representante, self.email)
 
 
-class Aluno(models.Model):
-    nome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Nome do Aluno')
-    sobrenome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Sobrenome')
-    telefone = models.CharField(max_length=11, null=True, blank=True, verbose_name='Telefone')
-    email = models.EmailField(max_length=100, unique=True, null=False, blank=False)
-
-    def __str__(self):
-        return "{} {} ({})".format(self.nome, self.telefone, self.email)
-
-
 class Projeto(models.Model):
 
     titulo = models.CharField(max_length=50, null=False, verbose_name='Nome do Projeto')
@@ -33,7 +23,17 @@ class Projeto(models.Model):
     descreva = models.TextField(null=True, blank=True, verbose_name='Descreva o Projeto')
 
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} {} ({})".format(self.titulo,self.dataInicio, self.empresa.nome)
+
+
+class Aluno(models.Model):
+    nome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Nome do Aluno')
+    sobrenome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Sobrenome')
+    telefone = models.CharField(max_length=11, null=True, blank=True, verbose_name='Telefone')
+    email = models.EmailField(max_length=100, unique=True, null=False, blank=False)
+    projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} {} ({})".format(self.nome, self.telefone, self.email)
