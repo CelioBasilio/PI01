@@ -21,9 +21,16 @@ class Projeto(models.Model):
     titulo = models.CharField(max_length=50, null=False, verbose_name='Nome do Projeto')
     dataInicio = models.DateTimeField(auto_now_add=True, verbose_name='Data Inicial')
     atualiza = models.DateTimeField(auto_now=True)
+<<<<<<< HEAD
     dataLimite = models.DateField(null=False, blank=False, verbose_name='Data Limite')
     descreva = models.TextField(null=False, blank=False, verbose_name='Descreva o Projeto')
     usuarioEmpresa = models.ForeignKey(User, on_delete=models.CASCADE)
+=======
+    dataLimite = models.DateField(null=True, blank=True, verbose_name='Data Limite')
+    descreva = models.TextField(null=True, blank=True, verbose_name='Descreva o Projeto')
+
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+>>>>>>> 5140f0650751a8827fc2017a7ffdaef48e2add56
 
     def __str__(self):
         return "{} {} ({})".format(self.titulo,self.dataInicio, self.empresa.nome)
@@ -34,6 +41,7 @@ class Aluno(models.Model):
     sobrenome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Sobrenome')
     telefone = models.CharField(max_length=11, null=True, blank=True, verbose_name='Telefone')
     email = models.EmailField(max_length=100, unique=True, null=False, blank=False)
+<<<<<<< HEAD
 
     projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
     usuarioAluno = models.ForeignKey(User, on_delete=models.PROTECT)
@@ -41,3 +49,9 @@ class Aluno(models.Model):
     def __str__(self):
         return "{} {} ({})".format(self.nome, self.telefone, self.email)
 
+=======
+    projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} {} ({})".format(self.nome, self.telefone, self.email)
+>>>>>>> 5140f0650751a8827fc2017a7ffdaef48e2add56
