@@ -84,7 +84,7 @@ class ProjetoUpdate(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = Projeto
     fields = ['titulo', 'dataLimite', 'descreva']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-projeto')
 
     def get_object(self, queryset=None):
         self.object = get_object_or_404(Projeto,pk=self.kwargs['pk'], usuarioEmpresa=self.request.user)
@@ -122,7 +122,7 @@ class ProjetoDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     group_required = u'GrupoEmpresa'
     model = Projeto
     template_name = 'cadastro/form-excluir.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-projeto')
 
 
 class AlunoDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
