@@ -10,6 +10,9 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -21,21 +24,29 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Projetos</a>
+                        <a class="nav-link" href="{% url 'listar-projeto' %}">Projetos</a>
                     </li>
                     <li class="nav-item">
                             <a class="nav-link" href="#">Usuários</a>
-                        </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Entrar</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Entrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registrar' %}">Cadastre-se</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'sobre'%}">Sobre</a>
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
-                            <a class="nav-link" href="#">Sair</a>
-                        </li>
+                            <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

@@ -41,12 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     # 3rd party
     'paginas.apps.PaginasConfig',
-    'cadastros.apps.CadastrosConfig',
+    'usuarios.apps.UsuariosConfig',
     'core.apps.CoreConfig',
+    'crispy_forms',
 
 
 
 ]
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,11 +131,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS =[
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+# configuração de altenticação
 
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'
 
 # django-allauth
 
