@@ -1,7 +1,7 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
-from .models import Empresa, Projeto, Aluno
+from .models import Projeto, Aluno, Empresa
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 from django.shortcuts import get_object_or_404
@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 
 
 class EmpresaCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Empresa
     fields = ['nome', 'representante', 'sobrenomerepre', 'telefone', 'email']
@@ -29,7 +29,7 @@ class EmpresaCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
 
 
 class ProjetoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Projeto
     fields = ['titulo', 'dataLimite', 'descreva']
@@ -48,7 +48,7 @@ class ProjetoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
 
 
 class AlunoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoAluno'
     model = Aluno
     fields = ['nome', 'sobrenome', 'telefone', 'email']
@@ -70,16 +70,16 @@ class AlunoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
 
 
 class EmpresaUpdate(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Empresa
     fields = ['nome', 'representante', 'sobrenomerepre', 'telefone', 'email']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('paginas:home')
 
 
 class ProjetoUpdate(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Projeto
     fields = ['titulo', 'dataLimite', 'descreva']
@@ -93,23 +93,23 @@ class ProjetoUpdate(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
 
 
 class AlunoUpdate(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoAluno'
     model = Aluno
     fields = ['nome', 'sobrenome', 'telefone', 'email']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('paginas:home')
 
 
 # Deletar Views
 
 
 class EmpresaDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Empresa
     template_name = 'cadastro/form-excluir.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('paginas:home')
 
     def get_object(self, queryset=None):
         # ou self.object = get_object_or_404(Projeto,pk=self.kwargs['pk'], usuarioEmpresa=self.request.user)
@@ -118,7 +118,7 @@ class EmpresaDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
 
 
 class ProjetoDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Projeto
     template_name = 'cadastro/form-excluir.html'
@@ -126,17 +126,17 @@ class ProjetoDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
 
 
 class AlunoDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     group_required = u'GrupoAluno'
     model = Aluno
     template_name = 'cadastro/form-excluir.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('paginas:home')
 
 # Listar Views
 
 
 class EmpresaList(LoginRequiredMixin, ListView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     model = Empresa
     template_name = 'cadastro/listas/empresa.html'
 
@@ -146,12 +146,12 @@ class ProjetoList(ListView):
     template_name = 'cadastro/listas/projeto.html'
 
     def get_queryset(self):
-
-        self.object_list = Projeto.objects.filter(usuarioEmpresa=self.request.user)
+                         #Projeto.objects.all() busca todos os projetos
+        self.object_list = Projeto.objects.filter(empresa=self.request.user)
         return self.object_list
 
 
 class AlunoList(LoginRequiredMixin, ListView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('account_login')
     model = Aluno
     template_name = 'cadastro/listas/aluno.html'

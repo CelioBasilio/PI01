@@ -1,6 +1,5 @@
 from django.contrib import admin
-from core.models import Empresa, Projeto, Aluno
-
+from core.models import Projeto, Empresa, Aluno
 # Register your models here.
 
 admin.site.register(Empresa),
