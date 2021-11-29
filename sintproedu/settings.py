@@ -25,7 +25,7 @@ SECRET_KEY = '*w+7nalss6jkra0-ztur+(q2orp*e3&jipwnmofag7j2tz(i0t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://pi01-sintproedu.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
