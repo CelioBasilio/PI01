@@ -5,6 +5,9 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="sintproedu.sintproedu.urls.*" />
+          <option value="django.db.models.fields.related.ForeignKey.nome" />
+          <option value="usuarios.models.Empresa.objects" />
+          <option value="usuarios.models.Aluno.objects" />
         </list>
       </option>
     </inspection_tool>

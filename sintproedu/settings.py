@@ -140,9 +140,10 @@ STATICFILES_DIRS = [
 ]
 # configuração de altenticação
 
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
-LOGIN_URL = 'login'
+#LOGIN_REDIRECT_URL = ''
+LOGOUT_REDIRECT_URL = '/'
+
+LOGIN_URL = 'account_login'
 
 # django-allauth
 
