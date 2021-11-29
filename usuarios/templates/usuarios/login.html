@@ -17,24 +17,29 @@
     </strong>
 </p>
 {% else %}
-<h3>Autenticação</h3>
-<!-- class = "lead">Preencha todos os campos obrigatórios.
-</>-->
 
-<br>
-<div class="row">
-    <div class="col-md-4 mx-auto">
-          <form action="" method="post">
-            {% csrf_token %}
+<div>
+    <div class="top-title">
+        <h3>{{titulo}}</h3>
+    </div>
+    <!-- class = "lead">Preencha todos os campos obrigatórios.
+    </>-->
 
-            {{ form|crispy }}
+    <br>
+    <div class="row form">
+        <div class="col-md-4 mx-auto">
+              <form action="" method="post">
+                {% csrf_token %}
 
-            <button type="submit" class="btn btn-primary">Entrar</button>
+                {{ form|crispy }}
 
-              <hr>
+                <button type="submit" class="btn btn-primary">{{botao}}</button>
+
+                  <hr>
 
 
-          </form>
+              </form>
+        </div>
     </div>
 </div>
 {% endif %}

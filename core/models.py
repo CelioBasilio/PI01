@@ -4,6 +4,8 @@ from django.db import models
 # Create your models here.
 
 class Empresa(models.Model):
+    username = models.CharField(max_length=30, null=True)
+    password = models.Value
     nome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Nome da Empresa')
     representante = models.CharField(max_length=50, null=False, blank=False, verbose_name='Nome do Representante')
     sobrenomerepre = models.CharField(max_length=50, null=False, blank=False, verbose_name='Sobrenome do Representante')
@@ -22,19 +24,21 @@ class Projeto(models.Model):
         ("E", "Realizados"),
     )
 
-    titulo = models.CharField(max_length=50, null=False, verbose_name='Nome do Projeto')
+    titulo = models.CharField(max_length=50, null=False, verbose_name='Titulo do Projeto')
     dataInicio = models.DateTimeField(auto_now_add=True, verbose_name='Data Inicial')
     atualiza = models.DateTimeField(auto_now=True)
     dataLimite = models.DateField(null=False, blank=False, verbose_name='Data Limite')
     descreva = models.TextField(null=False, blank=False, verbose_name='Descreva o Projeto')
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='projeto')
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=False, null=False)
+    username = models.OneToOneField(Empresa, on_delete=models.CASCADE, related_name='Empresa')
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, null=True)
 
     def __str__(self):
-        return "{} {} ({})".format(self.titulo,self.dataInicio, self.descreva)
+        return "{} {} ({})".format(self.titulo, self.dataInicio, self.descreva)
 
 
 class Aluno(models.Model):
+    username = models.CharField(max_length=30, null=True)
+    password = models.Value
     nome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Nome do Aluno')
     sobrenome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Sobrenome')
     telefone = models.CharField(max_length=11, null=True, blank=True, verbose_name='Telefone')
@@ -44,7 +48,3 @@ class Aluno(models.Model):
 
     def __str__(self):
         return "{} {} ({})".format(self.nome, self.telefone, self.email)
-
-
-
-
