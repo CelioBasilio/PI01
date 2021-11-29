@@ -14,7 +14,11 @@ class EmpresaCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Empresa
+<<<<<<< HEAD
     fields = ['nome', 'representante', 'sobrenomerepre', 'telefone']
+=======
+    fields = ['username', 'nome', 'representante', 'sobrenomerepre', 'telefone', 'email']
+>>>>>>> 36bf9527b02bd62ba1cf3246664bf2f05c454e55
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('cadastrar-projeto')
 
@@ -37,6 +41,10 @@ class EmpresaCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
 
         return context
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36bf9527b02bd62ba1cf3246664bf2f05c454e55
 
 class ProjetoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
 
@@ -48,6 +56,10 @@ class ProjetoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     success_url = reverse_lazy('listar-projeto')
 
     def form_valid(self, form):
+<<<<<<< HEAD
+=======
+        form.instance.usuarioProjeto = self.request.user
+>>>>>>> 36bf9527b02bd62ba1cf3246664bf2f05c454e55
 
         form.instance.username = self.request.user
         # Antes do super objeto não foi criado
@@ -65,6 +77,10 @@ class ProjetoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
 
         return context
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36bf9527b02bd62ba1cf3246664bf2f05c454e55
 
 class AlunoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     login_url = reverse_lazy('account_login')
@@ -178,13 +194,21 @@ class EmpresaList(LoginRequiredMixin, ListView):
 
 
 class ProjetoList(ListView):
+<<<<<<< HEAD
     group_required = u'GrupoEmpresa'
+=======
+    group_required = [u'GrupoAluno', u'GrupoEmpresa']
+>>>>>>> 36bf9527b02bd62ba1cf3246664bf2f05c454e55
     model = Projeto
     template_name = 'cadastro/listas/projeto.html'
 
     def __init__(self, **kwargs):
         super().__init__(kwargs)
+<<<<<<< HEAD
         self.object_list = Projeto.objects.filter(username=self.request.user)
+=======
+        self.object_list = Projeto.objects.filter(empresa=self.request.user)
+>>>>>>> 36bf9527b02bd62ba1cf3246664bf2f05c454e55
 
     def get_queryset(self):
 

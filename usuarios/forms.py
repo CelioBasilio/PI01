@@ -50,4 +50,7 @@ def get_context_data(self, *args, **kwargs):
     context['botao'] = 'Registrar'
 
     return context
+<<<<<<< HEAD
 
+=======
+>>>>>>> 36bf9527b02bd62ba1cf3246664bf2f05c454e55
