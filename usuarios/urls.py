@@ -11,7 +11,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='account_logout'),
     path('registrar/empresa/', EmpresaCreate.as_view(), name='registrar-empresa'),
     path('registrar/aluno/', AlunoCreate.as_view(), name='registrar-aluno'),
-    path('atualiza/perfil/empresa/', EmpresaUpdate.as_view(), name='atualiza-perfil-empresa'),
-    path('atualiza/perfil/aluno/', AlunoUpdate.as_view(), name='atualiza-perfil-aluno'),
+    path('atualiza/empresa/', EmpresaUpdate.as_view(), name='atualiza-empresa'),
+    path('atualiza/aluno/', AlunoUpdate.as_view(), name='atualiza-aluno'),
 
 ]

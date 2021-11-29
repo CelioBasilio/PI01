@@ -4,6 +4,8 @@ from django.db import models
 # Create your models here.
 
 class Empresa(models.Model):
+    username = models.CharField(max_length=30, null=True)
+    password = models.Value
     nome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Nome da Empresa')
     representante = models.CharField(max_length=50, null=False, blank=False, verbose_name='Nome do Representante')
     sobrenomerepre = models.CharField(max_length=50, null=False, blank=False, verbose_name='Sobrenome do Representante')
@@ -31,10 +33,12 @@ class Projeto(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, blank=False, null=False)
 
     def __str__(self):
-        return "{} {} ({})".format(self.titulo,self.dataInicio, self.descreva)
+        return "{} {} ({})".format(self.titulo, self.dataInicio, self.descreva)
 
 
 class Aluno(models.Model):
+    username = models.CharField(max_length=30, null=True)
+    password = models.Value
     nome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Nome do Aluno')
     sobrenome = models.CharField(max_length=50, null=False, blank=False, verbose_name='Sobrenome')
     telefone = models.CharField(max_length=11, null=True, blank=True, verbose_name='Telefone')
@@ -44,7 +48,3 @@ class Aluno(models.Model):
 
     def __str__(self):
         return "{} {} ({})".format(self.nome, self.telefone, self.email)
-
-
-
-

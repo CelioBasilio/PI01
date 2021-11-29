@@ -7,24 +7,28 @@
 {% block title %}Cadastro Empresa{% endblock %}
 
 {% block content %}
-<h3>Autenticação</h3>
-<!-- class = "lead">Preencha todos os campos obrigatórios.
-</>-->
+<div>
+    <div class="top-title">
+        <h3>{{ titulo }}</h3>
+    </div>
+    <!-- class = "lead">Preencha todos os campos obrigatórios.
+    </>-->
 
-<br>
-<div class="row">
-    <div class="col-md-8 mx-auto">
-          <form action="" method="post">
-            {% csrf_token %}
+    <br>
+    <div class="row form">
+        <div class="col-md-4 mx-auto">
+              <form action="" method="post">
+                {% csrf_token %}
 
-            {{ form|crispy }}
+                {{ form|crispy }}
 
-            <button type="submit" class="btn btn-primary">Entrar</button>
+                <button type="submit" class="btn btn-primary">{{ botao }}</button>
 
-              <hr>
+                  <hr>
 
 
-          </form>
+              </form>
+        </div>
     </div>
 </div>
 

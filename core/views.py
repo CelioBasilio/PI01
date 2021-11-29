@@ -13,9 +13,9 @@ class EmpresaCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Empresa
-    fields = ['nome', 'representante', 'sobrenomerepre', 'telefone', 'email']
+    fields = ['username', 'nome', 'representante', 'sobrenomerepre', 'telefone', 'email']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('listar-projeto')
+    success_url = reverse_lazy('cadastrar-projeto')
 
     def form_valid(self, form):
 
@@ -27,17 +27,27 @@ class EmpresaCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
         # Depois do super objeto criado
         return url
 
+    def get_context_data(self, *args, **kwargs):
+
+        context = super(EmpresaCreate, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Dados da Empresa'
+        context['botao'] = 'Registrar'
+
+        return context
+
+
 
 class ProjetoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Projeto
-    fields = ['titulo', 'dataLimite', 'descreva']
+    fields = ['titulo', 'status', 'dataLimite', 'descreva']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-projeto')
 
     def form_valid(self, form):
-        form.instance.usuarioEmpresa = self.request.user
+        form.instance.usuarioProjeto = self.request.user
 
         # Antes do super objeto não foi criado
 
@@ -46,14 +56,24 @@ class ProjetoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
         # Depois do super objeto criado
         return url
 
+    def get_context_data(self, *args, **kwargs):
+
+        context = super(ProjetoCreate, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Cadastro do projeto'
+        context['botao'] = 'Registrar'
+
+        return context
+
+
 
 class AlunoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
     login_url = reverse_lazy('account_login')
     group_required = u'GrupoAluno'
     model = Aluno
-    fields = ['nome', 'sobrenome', 'telefone', 'email']
+    fields = ['username', 'nome', 'sobrenome', 'telefone', 'email']
     template_name = 'cadastro/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('account_login')
 
     def form_valid(self, form):
 
@@ -66,6 +86,16 @@ class AlunoCreate(LoginRequiredMixin, GroupRequiredMixin, CreateView):
         # Depois do super objeto criado
         return url
 
+    def get_context_data(self, *args, **kwargs):
+
+        context = super(EmpresaCreate, self).get_context_data(*args, **kwargs)
+
+        context['titulo'] = 'Dados do Aluno'
+        context['botao'] = 'Registrar'
+
+        return context
+
+
     # Atualizar Views
 
 
@@ -73,7 +103,7 @@ class EmpresaUpdate(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Empresa
-    fields = ['nome', 'representante', 'sobrenomerepre', 'telefone', 'email']
+    fields = ['username', 'nome', 'representante', 'sobrenomerepre', 'telefone', 'email']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('paginas:home')
 
@@ -82,21 +112,25 @@ class ProjetoUpdate(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     login_url = reverse_lazy('account_login')
     group_required = u'GrupoEmpresa'
     model = Projeto
-    fields = ['titulo', 'dataLimite', 'descreva']
+    fields = ['titulo', 'status', 'dataLimite', 'descreva']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('listar-projeto')
 
+    def __init__(self, **kwargs):
+        super().__init__(kwargs)
+        self.object = get_object_or_404(Projeto, pk=self.kwargs['pk'], empresa=self.request.user)
+
     def get_object(self, queryset=None):
-        self.object = get_object_or_404(Projeto,pk=self.kwargs['pk'], usuarioEmpresa=self.request.user)
-       # ou self.object = Projeto.object.get(pk=self.kwargs['pk'], usuarioEmpresa=self.request.user)
+
         return self.object
+    # ou self.object = Projeto.object.get(pk=self.kwargs['pk'], usuarioEmpresa=self.request.user)
 
 
 class AlunoUpdate(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     login_url = reverse_lazy('account_login')
     group_required = u'GrupoAluno'
     model = Aluno
-    fields = ['nome', 'sobrenome', 'telefone', 'email']
+    fields = ['username', 'nome', 'sobrenome', 'telefone', 'email']
     template_name = 'cadastro/form.html'
     success_url = reverse_lazy('paginas:home')
 
@@ -109,11 +143,14 @@ class EmpresaDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     group_required = u'GrupoEmpresa'
     model = Empresa
     template_name = 'cadastro/form-excluir.html'
-    success_url = reverse_lazy('paginas:home')
+    success_url = reverse_lazy('/')
+
+    def __init__(self, **kwargs):
+        super().__init__(kwargs)
+        self.object = Projeto.objects.get(pk=self.kwargs['pk'], empresa=self.request.user)
 
     def get_object(self, queryset=None):
         # ou self.object = get_object_or_404(Projeto,pk=self.kwargs['pk'], usuarioEmpresa=self.request.user)
-        self.object = Projeto.object.get(pk=self.kwargs['pk'], usuarioEmpresa=self.request.user)
         return self.object
 
 
@@ -130,7 +167,7 @@ class AlunoDelete(LoginRequiredMixin, GroupRequiredMixin, DeleteView):
     group_required = u'GrupoAluno'
     model = Aluno
     template_name = 'cadastro/form-excluir.html'
-    success_url = reverse_lazy('paginas:home')
+    success_url = reverse_lazy('/')
 
 # Listar Views
 
@@ -142,13 +179,18 @@ class EmpresaList(LoginRequiredMixin, ListView):
 
 
 class ProjetoList(ListView):
+    group_required = [u'GrupoAluno', u'GrupoEmpresa']
     model = Projeto
     template_name = 'cadastro/listas/projeto.html'
 
-    def get_queryset(self):
-                         #Projeto.objects.all() busca todos os projetos
+    def __init__(self, **kwargs):
+        super().__init__(kwargs)
         self.object_list = Projeto.objects.filter(empresa=self.request.user)
+
+    def get_queryset(self):
+
         return self.object_list
+    # Projeto.objects.all() busca todos os projetos
 
 
 class AlunoList(LoginRequiredMixin, ListView):

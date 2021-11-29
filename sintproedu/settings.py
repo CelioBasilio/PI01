@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*w+7nalss6jkra0-ztur+(q2orp*e3&jipwnmofag7j2tz(i0t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://pi01-sintproedu.herokuapp.com']
 
 
 # Application definition
@@ -57,6 +57,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "Whitenoise.middleware.WhhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -140,9 +141,10 @@ STATICFILES_DIRS = [
 ]
 # configuração de altenticação
 
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
-LOGIN_URL = 'login'
+#LOGIN_REDIRECT_URL = ''
+LOGOUT_REDIRECT_URL = '/'
+
+LOGIN_URL = 'account_login'
 
 # django-allauth
 
